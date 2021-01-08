@@ -1,5 +1,6 @@
 package com.databox.onlinebookshop;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
@@ -16,8 +17,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
@@ -29,6 +36,7 @@ public class saveBookItems extends AppCompatActivity {
     private Button saveBookList , bookChooseImage;
     FirebaseDatabase database;
     DatabaseReference bookDBReference;
+    StorageReference bookStorageReference;
     int Image_Request_Code = 7;
     Uri FilePathUri;
 
@@ -46,12 +54,13 @@ public class saveBookItems extends AppCompatActivity {
         bookChooseImage = (Button) findViewById(R.id.buttonChooseFile);
         bokThumbView = (ImageView)findViewById(R.id.bookThumbView);
 
-
+        bookStorageReference = FirebaseStorage.getInstance().getReference().child("Books");
         bookDBReference = FirebaseDatabase.getInstance().getReference().child("Books");
 
         saveBookList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                uploadImage();
                 saveBookListData();
             }
         });
@@ -96,8 +105,7 @@ public class saveBookItems extends AppCompatActivity {
 
 
     private void saveBookListData() {
-
-        //int bokImage = bookImageUpload.getId();
+        int bokThumb = bokThumbView.getId();
         String bokName = bookName.getText().toString();
         String bokCategory =  bookCategory.getText().toString();
         String bokISBN = bookISBN.getText().toString();
@@ -106,7 +114,29 @@ public class saveBookItems extends AppCompatActivity {
        Books books = new Books(bokName,bokCategory,bokISBN,bokPrice);
 
        bookDBReference.push().setValue(books);
-        Toast.makeText(saveBookItems.this, "Save Books!",Toast.LENGTH_SHORT).show();
+       // bookDBReference.child("images/" +books);
+       Toast.makeText(saveBookItems.this, "Save Books!",Toast.LENGTH_SHORT).show();
+    }
+
+    private void uploadImage(){
+        if (FilePathUri != null){
+            StorageReference fileReference = bookStorageReference.child(System.currentTimeMillis()+ "."+ GetFileExtension(FilePathUri)) ;
+
+            fileReference.putFile(FilePathUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                           Toast.makeText(saveBookItems.this , "Image upload successfully!", Toast.LENGTH_SHORT).show();
+                        }
+                    }). addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(saveBookItems.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(this,"No File Selected" , Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
