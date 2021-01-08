@@ -26,8 +26,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="12">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
@@ -138,8 +137,6 @@
                     android:layout_weight="1"
                     android:hint="Enter the price" />
 
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -180,21 +177,32 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <TextView
-                    android:id="@+id/textView6"
+<!--                <TextView-->
+<!--                    android:id="@+id/textView6"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Enter File to Upload:"-->
+<!--                    android:textAppearance="?android:attr/textAppearanceMedium" />-->
+
+
+                <ImageView
+                    android:id="@+id/bookThumbView"
+                    android:src=""
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Enter File to Upload:"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:layout_weight="1"/>
 
 
                 <Button
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp"
-                    android:id="@+id/buttonFileUpload"
+                    android:id="@+id/buttonChooseFile"
                     android:text="Choose File"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -216,8 +224,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="bottom"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Save Book List"
@@ -228,5 +236,5 @@
         </LinearLayout>
 
     </ScrollView>
-    
+
 </LinearLayout>

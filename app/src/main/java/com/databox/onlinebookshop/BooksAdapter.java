@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 public class BooksAdapter extends ArrayAdapter<String> {
     Context context;
-    int[] booksThumbNail;
+    int[] thumbNail;
     String[] booksName;
     String[] booksPrice;
 
@@ -19,7 +19,7 @@ public class BooksAdapter extends ArrayAdapter<String> {
     public BooksAdapter( Context context, String[] booksName,String[] booksPrice, int[] booksThumbNail) {
         super(context, R.layout.book_layout,R.id.bookName, booksName);
         this.context = context;
-        this.booksThumbNail = booksThumbNail;
+        this.thumbNail = booksThumbNail;
         this.booksName = booksName;
         this.booksPrice = booksPrice;
     }

@@ -53,7 +53,7 @@ public class login extends AppCompatActivity {
                 }
 
                 if (password.length() < 7 ) {
-                    editTextPassword.setError("Password must be >= 7 characters");
+                    editTextPassword.setError("Password must be at least 7 characters");
                     return;
                 }
 

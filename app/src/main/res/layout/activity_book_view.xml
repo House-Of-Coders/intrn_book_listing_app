@@ -9,6 +9,7 @@
     tools:context=".bookView">
 
     <LinearLayout
+        android:padding="100dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -20,6 +21,7 @@
             android:id="@+id/image"/>
 
         <TextView
+            android:layout_marginTop="10dp"
             android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -27,18 +29,24 @@
             android:id="@+id/bookName"/>
 
         <TextView
+            android:layout_marginTop="10dp"
             android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Book Category" />
+            android:text="Book Category"
+            android:id="@+id/bokCategory"/>
 
         <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/bokPrice"
             android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Book Price" />
 
         <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/bokQuanity"
             android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
