@@ -60,7 +60,7 @@ public class saveBookItems extends AppCompatActivity {
         saveBookList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+               // uploadImage();
                 saveBookListData();
             }
         });
@@ -105,13 +105,15 @@ public class saveBookItems extends AppCompatActivity {
 
 
     private void saveBookListData() {
-        int bokThumb = bokThumbView.getId();
+        String bookImgID;
+        bookImgID = System.currentTimeMillis()+GetFileExtension(FilePathUri);
+        //int bokThumb = bokThumbView.getId();
         String bokName = bookName.getText().toString();
         String bokCategory =  bookCategory.getText().toString();
         String bokISBN = bookISBN.getText().toString();
         String bokPrice = bookPrice.getText().toString();
 
-       Books books = new Books(bokName,bokCategory,bokISBN,bokPrice);
+       Books books = new Books(bookImgID,bokName,bokCategory,bokISBN,bokPrice);
 
        bookDBReference.push().setValue(books);
        // bookDBReference.child("images/" +books);
