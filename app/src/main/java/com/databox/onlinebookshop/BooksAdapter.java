@@ -1,6 +1,7 @@
 package com.databox.onlinebookshop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,13 @@ public class BooksAdapter extends ArrayAdapter<String> {
     String[] booksPrice;
 
 
-    public BooksAdapter( Context context, String[] booksName,String[] booksPrice, int[] booksThumbNail) {
-        super(context, R.layout.book_layout,R.id.bookName, booksName);
+    public BooksAdapter( Context context, int[] booksThumbNail ,String[] booksName,String[] booksPrice) {
+        super(context, R.layout.book_layout,R.id.bokThumbView, booksName);
         this.context = context;
         this.thumbNail = booksThumbNail;
         this.booksName = booksName;
         this.booksPrice = booksPrice;
+
     }
 
     @Override
@@ -37,9 +39,20 @@ public class BooksAdapter extends ArrayAdapter<String> {
         } else {
             holder = (BooksViewHolder) singleBookListItem.getTag();
         }
-       // holder.bookCoverImage.setImageResource(images[position]);
-       // holder.bookHeaderName.setText();
+        holder.bookCoverImage.setImageResource(thumbNail[position]);
+        holder.bookHeaderName.setText(booksName[position]);
+        holder.bookPrice.setText(booksPrice[position]);
 
         return super.getView(position, convertView, parent);
+    }
+
+    public void onClick(View v) {
+
+
+        Intent i = new Intent(context,bookListView.class);
+        i.putExtra("bookName",booksName);
+//        i.putExtra("bookname",BookNameList.get(position));
+//
+        context.startActivity(i);
     }
 }
