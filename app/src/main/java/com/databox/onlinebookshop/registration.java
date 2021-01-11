@@ -72,7 +72,6 @@ public class registration extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                // register use in firebase
                 fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -80,6 +79,7 @@ public class registration extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         }else {
                             Toast.makeText(registration.this,"Error !"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 });

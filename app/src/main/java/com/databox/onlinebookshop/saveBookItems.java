@@ -53,6 +53,7 @@ public class saveBookItems extends AppCompatActivity {
         saveBookList = (Button) findViewById(R.id.buttonSaveBookList);
         bookChooseImage = (Button) findViewById(R.id.buttonChooseFile);
         bokThumbView = (ImageView)findViewById(R.id.bookThumbView);
+        database = FirebaseDatabase.getInstance();
 
         bookStorageReference = FirebaseStorage.getInstance().getReference().child("Books");
         bookDBReference = FirebaseDatabase.getInstance().getReference().child("Books");

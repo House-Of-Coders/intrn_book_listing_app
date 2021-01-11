@@ -59,7 +59,7 @@ public class login extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                        if (task.isSuccessful()) {
@@ -67,6 +67,7 @@ public class login extends AppCompatActivity {
                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
                        }else {
                            Toast.makeText(login.this,"Error !"+ task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                           progressBar.setVisibility(View.GONE);
                        }
                     }
                 });
@@ -81,8 +82,6 @@ public class login extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),registration.class));
             }
         });
-
-
 
     }
 
