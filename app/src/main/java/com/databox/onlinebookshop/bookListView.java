@@ -20,8 +20,8 @@ public class bookListView extends AppCompatActivity {
     ListView bookListView;
     FirebaseDatabase database;
     DatabaseReference bookDB;
-    ArrayList<BookListAdapter> list;
-    ArrayAdapter <BookListAdapter> adapter;
+    ArrayList<String> list;
+    ArrayAdapter <String> adapter;
     BookListAdapter bookListAdapter;
 
     @Override
@@ -33,15 +33,16 @@ public class bookListView extends AppCompatActivity {
         bookListView = findViewById(R.id.book_list);
         database = FirebaseDatabase.getInstance();
         bookDB = database.getReference("Books");
+
         list = new ArrayList<>();
-        adapter = new ArrayAdapter<BookListAdapter>(this , R.layout.book_layout, R.id.bokThumbView,list);
+        adapter = new ArrayAdapter<String>(this , R.layout.book_layout, R.id.bookName, list);
         bookDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                for (DataSnapshot ds:snapshot.getChildren())
                {
                 bookListAdapter = ds.getValue(BookListAdapter.class);
-                list.add(bookListAdapter);
+                list.add(bookListAdapter.getBookName().toString()+ " " +bookListAdapter.getBookPrice().toString());
                }
                bookListView.setAdapter(adapter);
             }

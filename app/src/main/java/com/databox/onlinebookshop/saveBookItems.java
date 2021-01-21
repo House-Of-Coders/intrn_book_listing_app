@@ -63,6 +63,13 @@ public class saveBookItems extends AppCompatActivity {
             public void onClick(View v) {
                // uploadImage();
                 saveBookListData();
+                bookName.setText(null);
+                bookCategory.setText(null);
+                bookISBN.setText(null);
+                bookPrice.setText(null);
+               // bookChooseImage.setId(null);
+
+
             }
         });
 
