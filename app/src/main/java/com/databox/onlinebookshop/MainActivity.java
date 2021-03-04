@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(menuBooks);
             }
         });
-
     }
 
     public void logout (View view) {

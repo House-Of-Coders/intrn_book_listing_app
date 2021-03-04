@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -50,16 +52,21 @@ public class registration extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-//        if (fAuth.getCurrentUser() != null) {
-//            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-//            finish();
-//        }
+        if (fAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(),login.class));
+            finish();
+        }
 
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = textEmail.getText().toString().trim();
                 String password = textPassword.getText().toString().trim();
+
+                checkField(textName);
+                checkField(textEmail);
+                checkField(textPassword);
+                checkField(textRePassword);
 
                 if (TextUtils.isEmpty(email)) {
                     textEmail.setError("Email is Required!");
@@ -93,12 +100,6 @@ public class registration extends AppCompatActivity {
 //                    }
 //                });
 
-                checkField(textName);
-                checkField(textEmail);
-                checkField(textPassword);
-                checkField(textRePassword);
-                progressBar.setVisibility(View.VISIBLE);
-
                 if (valid){
                     // start user registration process
                     fAuth.createUserWithEmailAndPassword(textEmail.getText().toString(),textPassword.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -110,17 +111,23 @@ public class registration extends AppCompatActivity {
                             Map<String,Object> userInfo = new HashMap<>();
                             userInfo.put("Full Name", textName.getText().toString());
                             userInfo.put("Email",textEmail.getText().toString());
-                            // admin the user
                             userInfo.put("isUser" ,"1");
                             dF.set(userInfo);
+                            userRoll(authResult.getUser().getUid());
                             startActivity(new Intent(getApplicationContext(),login.class));
                             progressBar.setVisibility(View.GONE);
+                            textName.setText(null);
+                            textEmail.setText(null);
+                            textPassword.setText(null);
+                            textPassword.setText(null);
+                            progressBar.setVisibility(View.VISIBLE);
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(registration.this,"Failed to Create an Account", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                         }
                     });
                 }
@@ -132,6 +139,25 @@ public class registration extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),login.class));
 
+            }
+        });
+    }
+
+
+    private void userRoll(String uid) {
+        DocumentReference df = fStore.collection("Users").document(uid);
+        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("TAG","On Success" + documentSnapshot.getData());
+                if (documentSnapshot.getString("isAdmin") != null){
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+                else if (documentSnapshot.getString("isUser") != null){
+                    startActivity(new Intent(getApplicationContext(),bookListView.class));
+                    finish();
+                }
             }
         });
     }

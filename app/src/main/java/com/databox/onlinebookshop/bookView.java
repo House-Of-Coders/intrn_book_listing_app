@@ -27,7 +27,8 @@ public class bookView extends AppCompatActivity {
         bookQuantity = (TextView) findViewById(R.id.bokQuanity);
         backButton = (Button) findViewById(R.id.backButton);
 
-
+//        String data = getIntent().getStringExtra("data");
+//        bookName.setText(data.toString());
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

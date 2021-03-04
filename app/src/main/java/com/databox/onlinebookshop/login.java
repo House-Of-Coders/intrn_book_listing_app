@@ -29,7 +29,7 @@ public class login extends AppCompatActivity {
     private Button buttonSignIn ,buttonNotHavingAccount;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
     boolean valid = true;
 
     @Override
@@ -45,11 +45,15 @@ public class login extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
+
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
+
+                checkField(editTextEmail);
+                checkField(editTextPassword);
 
                 if (TextUtils.isEmpty(email)){
                     editTextEmail.setError("Email is Required");
@@ -65,9 +69,6 @@ public class login extends AppCompatActivity {
                     editTextPassword.setError("Password must be at least 7 characters");
                     return;
                 }
-
-                checkField(editTextEmail);
-                checkField(editTextPassword);
 
                 if (valid) {
                   fAuth.signInWithEmailAndPassword(editTextEmail.getText().toString(),editTextPassword.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -85,20 +86,6 @@ public class login extends AppCompatActivity {
                       }
                   });
                 }
-
-//                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                       if (task.isSuccessful()) {
-//                           Toast.makeText(login.this,"Logged in Successfully",Toast.LENGTH_SHORT).show();
-//                           startActivity(new Intent(getApplicationContext(),MainActivity.class));
-//                       }else {
-//                           Toast.makeText(login.this,"Error !"+ task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-//                           progressBar.setVisibility(View.GONE);
-//                       }
-//                    }
-//                });
-
             }
         });
 
@@ -122,7 +109,7 @@ public class login extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
                 }
-                if (documentSnapshot.getString("isUser") != null){
+                else if (documentSnapshot.getString("isUser") != null){
                     startActivity(new Intent(getApplicationContext(),bookListView.class));
                     finish();
                 }

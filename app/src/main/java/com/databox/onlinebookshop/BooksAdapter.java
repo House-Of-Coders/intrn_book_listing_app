@@ -23,31 +23,9 @@ public class BooksAdapter extends ArrayAdapter<String> {
         this.thumbNail = booksThumbNail;
         this.booksName = booksName;
         this.booksPrice = booksPrice;
-
-    }
-
-    @Override
-    public View getView(int position,  View convertView, ViewGroup parent) {
-
-        View singleBookListItem = convertView;
-        BooksViewHolder holder = null;
-        if (singleBookListItem == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            singleBookListItem = layoutInflater.inflate(R.layout.book_layout,parent,false);
-            holder = new BooksViewHolder(singleBookListItem);
-            singleBookListItem.setTag(holder);
-        } else {
-            holder = (BooksViewHolder) singleBookListItem.getTag();
-        }
-        holder.bookCoverImage.setImageResource(thumbNail[position]);
-        holder.bookHeaderName.setText(booksName[position]);
-        holder.bookPrice.setText(booksPrice[position]);
-
-        return super.getView(position, convertView, parent);
     }
 
     public void onClick(View v) {
-
 
         Intent i = new Intent(context,bookListView.class);
         i.putExtra("bookName",booksName);

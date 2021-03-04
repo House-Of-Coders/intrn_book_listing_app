@@ -12,9 +12,21 @@
         android:layout_height="match_parent"
         android:id="@+id/book_list"/>
 
-    <include
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/floatingIcon"/>
+        android:paddingBottom="5dp"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:text="Back"
+            android:id="@+id/buttonBackButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

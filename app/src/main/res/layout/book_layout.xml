@@ -17,11 +17,10 @@
         android:layout_marginEnd="5dp">
 
         <TextView
-            android:id="@+id/bookName"
+            android:id="@+id/bokName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="Goose Bumps"
             android:textColor="#040404"
             android:typeface="sans"
             android:textSize="15sp"
@@ -33,7 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="Rs0"
             android:textColor="#040404"
             android:typeface="sans"
             android:textSize="15sp"
