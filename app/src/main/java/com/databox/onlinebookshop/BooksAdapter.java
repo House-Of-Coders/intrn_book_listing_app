@@ -11,11 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class BooksAdapter extends ArrayAdapter<String> {
+
     Context context;
     int[] thumbNail;
     String[] booksName;
     String[] booksPrice;
-
 
     public BooksAdapter( Context context, int[] booksThumbNail ,String[] booksName,String[] booksPrice) {
         super(context, R.layout.book_layout,R.id.bokThumbView, booksName);

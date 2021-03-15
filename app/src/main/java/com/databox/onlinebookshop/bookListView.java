@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -61,7 +62,7 @@ public class bookListView extends AppCompatActivity {
         backButton = findViewById(R.id.buttonBackButton);
         database = FirebaseDatabase.getInstance();
         bookDB = database.getReference("Books");
-        Query query = FirebaseDatabase.getInstance().getReference().child("Books");
+       Query query = FirebaseDatabase.getInstance().getReference().child("Books");
        StorageReference bookStorageReference = FirebaseStorage.getInstance().getReference().child("Books/").child("1611730213670.jpg");
         FirebaseListOptions<Books> options = new FirebaseListOptions.Builder<Books>()
                 .setLayout(R.layout.book_layout)
@@ -73,7 +74,6 @@ public class bookListView extends AppCompatActivity {
             protected void populateView(@NonNull View v, @NonNull Object model, int position) {
                 TextView bkName = v.findViewById(R.id.bokName);
                 TextView bkPrice = v.findViewById(R.id.bookPrice);
-//                ImageView bkThumb = v.findViewById(R.id.bokThumbView);
 
                 Books bk = (Books) model;
                 bkName.setText("BookName:" +bk.getBookName().toString());
@@ -108,16 +108,16 @@ public class bookListView extends AppCompatActivity {
         bookListView.setAdapter(firebaseListAdapter);
 
 
-//        list = new ArrayList<>();
-//       adapter = new ArrayAdapter<String>(this , R.layout.book_layout, R.id.bookName, list);
+//      list = new ArrayList<>();
+//       adapter = new ArrayAdapter<String>(this , R.layout.book_layout, R.id.bokName, list);
 //        bookDB.addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
 //               for (DataSnapshot ds:snapshot.getChildren())
 //               {
 //
-//                   bookListAdapter = ds.getValue(BookListAdapter.class);
-//                   list.add(bookListAdapter.getBookName().toString()+ " " +bookListAdapter.getBookPrice().toString());
+//                   bookShowAdapter = ds.getValue(BookShowAdapter.class);
+//                   list.add(bookShowAdapter.getBookName().toString()+ " " +bookShowAdapter.getBookPrice().toString());
 //               }
 //               bookListView.setAdapter(adapter);
 //            }
@@ -132,9 +132,14 @@ public class bookListView extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Books books = (Books) firebaseListAdapter.getItem(position);
                 Intent intent = new Intent(getApplicationContext(),bookView.class);
-                bookListView.setAdapter(firebaseListAdapter);
+                intent.putExtra("bookName" , books.getBookName().toString());
+                intent.putExtra("bookPrice", books.getBookPrice().toString());
+                intent.putExtra("bookCategory" , books.getBookCategory().toString());
+                intent.putExtra("bookISBN" , books.getBookISBN().toString());
                 startActivity(intent);
+
             }
         });
 

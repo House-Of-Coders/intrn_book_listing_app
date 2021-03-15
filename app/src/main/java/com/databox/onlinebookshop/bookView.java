@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class bookView extends AppCompatActivity {
 
-    private TextView bookName , bookCategory, bookPrice , bookQuantity;
+    private TextView bookName , bookCategory, bookPrice , bookISBN;
     private ImageView bookImage;
     private Button backButton;
 
@@ -24,11 +24,18 @@ public class bookView extends AppCompatActivity {
         bookName = (TextView) findViewById(R.id.bookName);
         bookCategory = (TextView) findViewById(R.id.bokCategory);
         bookPrice = (TextView) findViewById(R.id.bokPrice);
-        bookQuantity = (TextView) findViewById(R.id.bokQuanity);
+        bookISBN = (TextView) findViewById(R.id.bokISBN);
         backButton = (Button) findViewById(R.id.backButton);
 
-//        String data = getIntent().getStringExtra("data");
-//        bookName.setText(data.toString());
+        Intent intent = getIntent();
+        String bkName = intent.getStringExtra("bookName");
+        String bkPrice = intent.getStringExtra("bookPrice");
+        String bkISBN = intent.getStringExtra("bookISBN");
+        String bkCategory = intent.getStringExtra("bookCategory");
+        bookName.setText(bkName.toString());
+        bookCategory.setText(bkCategory.toString());
+        bookPrice.setText(bkPrice.toString());
+        bookISBN.setText(bkISBN.toString());
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

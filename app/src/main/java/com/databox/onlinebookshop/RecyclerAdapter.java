@@ -50,7 +50,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
 
-        //Widgets
         ImageView bokimageView;
         TextView  bokNameView;
         TextView bokpriceTextView;
